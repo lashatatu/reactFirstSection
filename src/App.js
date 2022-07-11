@@ -1,13 +1,14 @@
+import Header from './components/Header'
 
 const App = () => {
-  const title='blog post'
-  const body='this is my blog'
-
   return (
-    <div className={'container'}>
-      <h1>{title}</h1>
-      <p>{body}</p>
-    </div>
+    <>
+      <Header />
+
+      <div className={'container'}>
+        <h1>my app</h1>
+      </div>
+    </>
   )
 }
 

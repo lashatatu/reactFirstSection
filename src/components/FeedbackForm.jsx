@@ -1,41 +1,45 @@
 import Card from './shared/Card'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Button from './shared/Button'
 import RatingSelect from './RatingSelect'
+import FeedbackContext from '../context/FeedbackContext'
 
-const FeedbackForm = ({handleAdd}) => {
+const FeedbackForm = () => {
+
   const [text, setText] = useState('')
   const [rating, setRating] = useState(10)
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [message, setMessage] = useState('')
-  const handleTextChange=(e)=>{
-    if(text===''){
+  const {addFeedback} = useContext(FeedbackContext)
+
+  const handleTextChange = (e) => {
+    if ( text === '' ) {
       setBtnDisabled(true)
       setMessage(null)
-    }else if(text!==''&&text.trim().length<=10){
+    } else if ( text !== '' && text.trim().length <= 10 ) {
       setMessage('text must be at least 10 characters')
       setBtnDisabled(true)
-    }else {
+    } else {
       setMessage(null)
       setBtnDisabled(false)
     }
     setText(e.target.value)
   }
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault()
-    if(text.trim().length>10){
-      const newFeedback= {
+    if ( text.trim().length > 10 ) {
+      const newFeedback = {
         text,
-        rating
+        rating,
       }
-      handleAdd(newFeedback)
+      addFeedback(newFeedback)
     }
   }
   return (
     <Card>
       <form onSubmit={handleSubmit}>
         <h2>rate your service</h2>
-        <RatingSelect select={(rating)=>setRating(rating)}/>
+        <RatingSelect select={(rating) => setRating(rating)}/>
         <div className="input-group">
           <input onChange={handleTextChange} type="text" placeholder={'write review'} value={text}/>
           <Button type={'submit'} isDisabled={btnDisabled}>Send</Button>

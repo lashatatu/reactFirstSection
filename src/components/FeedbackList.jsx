@@ -1,5 +1,4 @@
 import FeedbackItem from './FeedbackItem'
-import { logDOM } from '@testing-library/react'
 import { useContext } from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 
